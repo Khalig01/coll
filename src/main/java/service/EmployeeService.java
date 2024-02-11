@@ -20,7 +20,7 @@ public class EmployeeService {
 
     public void add(String fistName, String lastName,int salary,int department) throws EmployeeAlreadyAddedException {
         if(StringUtils.isAlpha(fistName) || !StringUtils.isAlpha(lastName)){
-            throw new WrongNameException("Name of last name must contain only latters");
+            throw new WrongNameException("Name of last name must contain only latters!");
         }
         if (employees.size() >= MAX_COUNT) {
             throw new EmplooyeeStorageFullException();
@@ -61,6 +61,8 @@ public class EmployeeService {
     private static String makeKey(String firstName, String lastName) {
         return (firstName + "_" + lastName).toLowerCase();
     }
+
+
 }
 
 
