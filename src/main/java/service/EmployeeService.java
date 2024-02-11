@@ -3,8 +3,10 @@ package service;
 import exceptions.EmplooyeException;
 import exceptions.EmplooyeeStorageFullException;
 import exceptions.EmployeeAlreadyAddedException;
+import exceptions.WrongNameException;
 import homework.coll.Employee;
 import org.apache.catalina.mbeans.SparseUserDatabaseMBean;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -17,10 +19,14 @@ public class EmployeeService {
 
 
     public void add(String fistName, String lastName,int salary,int department) throws EmployeeAlreadyAddedException {
+        if(StringUtils.isAlpha(fistName) || !StringUtils.isAlpha(lastName)){
+            throw new WrongNameException("Name of last name must contain only latters");
+        }
         if (employees.size() >= MAX_COUNT) {
             throw new EmplooyeeStorageFullException();
         }
-        Employee employee = new Employee(fistName, lastName,salary, department);
+        Employee employee = new Employee(StringUtils.capitalize(fistName),
+                StringUtils.capitalize(lastName),salary, department);
         var key = makeKey(fistName, lastName);
         if (employees.containsKey(key)) {
             throw new EmployeeAlreadyAddedException();
