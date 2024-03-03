@@ -6,32 +6,40 @@ public class Employee {
 
     private final String firstName;
     private final String lastName;
+    private int salary;
+    private int department;
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, int salary, int department) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.salary = salary;
+        this.department = department;
     }
 
-    public String getFirstName () {
+    public String getFirstName() {
 
         return firstName;
     }
-    public String getLastName(){
+
+    public String getLastName() {
 
         return lastName;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Employee employee)) return false;
-        return Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
+    public int getSalary() {
+        return salary;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName);
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public int getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(int department) {
+        this.department = department;
     }
 
     @Override
@@ -39,6 +47,35 @@ public class Employee {
         return "Employee{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", salary=" + salary +
+                ", department=" + department +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee employee)) return false;
+        return salary == employee.salary && department == employee.department && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, salary, department);
+    }
+
+    public boolean isPresent() {
+        return true;
+    }
+
+
+    public boolean isEmpty() {
+        return true;
+    }
+
+    public boolean get() {
+        return true;
+    }
 }
+
+
