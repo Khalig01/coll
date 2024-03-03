@@ -18,16 +18,14 @@ public class EmployeeService {
     private final Map<String, Employee> employees = new HashMap<>(MAX_COUNT);
 
 
-    public void add(String fistName, String lastName,int salary,int department) throws EmployeeAlreadyAddedException {
-        if(StringUtils.isAlpha(fistName) || !StringUtils.isAlpha(lastName)){
-            throw new WrongNameException("Name of last name must contain only latters!");
-        }
+    public void add(String firstName, String lastName,int salary,int department) throws EmployeeAlreadyAddedException {
+        checkLetters(firstName,lastName);
         if (employees.size() >= MAX_COUNT) {
             throw new EmplooyeeStorageFullException();
         }
-        Employee employee = new Employee(StringUtils.capitalize(fistName),
+        Employee employee = new Employee(StringUtils.capitalize(firstName),
                 StringUtils.capitalize(lastName),salary, department);
-        var key = makeKey(fistName, lastName);
+        var key = makeKey(firstName, lastName);
         if (employees.containsKey(key)) {
             throw new EmployeeAlreadyAddedException();
         }
@@ -61,7 +59,13 @@ public class EmployeeService {
     private static String makeKey(String firstName, String lastName) {
         return (firstName + "_" + lastName).toLowerCase();
     }
-
+private static void checkLetters(String... words){
+        for(String word : words){
+            if(!StringUtils.isAlpha(word)){
+                throw new WrongNameException("Name of last name must contain only letters");
+            }
+        }
+}
 
 }
 

@@ -9,18 +9,19 @@ public class Employee {
     private int salary;
     private int department;
 
-    public Employee(String firstName, String lastName,int salary, int department) {
+    public Employee(String firstName, String lastName, int salary, int department) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.salary=salary;
-        this.department=department;
+        this.salary = salary;
+        this.department = department;
     }
 
-    public String getFirstName () {
+    public String getFirstName() {
 
         return firstName;
     }
-    public String getLastName(){
+
+    public String getLastName() {
 
         return lastName;
     }
@@ -62,5 +63,19 @@ public class Employee {
     public int hashCode() {
         return Objects.hash(firstName, lastName, salary, department);
     }
+
+    public boolean isPresent() {
+        return true;
+    }
+
+
+    public boolean isEmpty() {
+        return true;
+    }
+
+    public boolean get() {
+        return true;
+    }
 }
+
 
