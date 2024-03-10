@@ -1,9 +1,6 @@
 package service;
 
-import exceptions.EmplooyeException;
-import exceptions.EmplooyeeStorageFullException;
-import exceptions.EmployeeAlreadyAddedException;
-import exceptions.WrongNameException;
+import exceptions.*;
 import homework.coll.Employee;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.TestExecutionListeners;
@@ -75,17 +72,17 @@ class EmployeeServiceTest {
     }
 @Test
     void testNotFound(){
-    assertThrows(EmplooyeException.class,() -> employeeService.find("meni","bill"));
+    assertThrows(EmployeeNotFoundException.class,() -> employeeService.find("meni","bill"));
 }
 @Test
     void testRemove(){
-    assertThrows(EmplooyeException.class,() -> employeeService.remove("meni","bill"));
+    assertThrows(EmployeeNotFoundException.class,() -> employeeService.remove("meni","bill"));
     employeeService.add("Iqor","Kuprin",1000,1);
     employeeService.add("Zaxar","Osman",2000,2);
     var actual= employeeService.find("Iqor","Kuprin");
     assertThat(actual).isNotNull();
     employeeService.remove("Iqor","Kuprin");
-    assertThrows(EmplooyeException.class,() -> employeeService.find("Iqor","Kuprin"));
+    assertThrows(EmployeeNotFoundException.class,() -> employeeService.find("Iqor","Kuprin"));
 }
 
 }

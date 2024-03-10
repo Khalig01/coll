@@ -1,6 +1,7 @@
 package service;
 
 import exceptions.EmplooyeException;
+import exceptions.EmployeeNotFoundException;
 import homework.coll.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,12 +39,12 @@ class DepartmentServiceTest {
     }
 @Test
     void testDepartmentMaxSallary(){
+    assertThat(departmentService.findMaxSalary(1)).isEqualTo(new Employee("Kristina","Kristina", 4000,1));
     assertThat(departmentService.findMaxSalary(1)).isEqualTo(new Employee("Nastya","Nastya", 10000,1));
-    assertThat(departmentService.findMaxSalary(3)).isEqualTo(new Employee("Maks","Maks", 30000,3));
-    assertThrows(EmplooyeException.class,() -> departmentService.findMaxSalary(1111));
+    assertThrows(EmployeeNotFoundException.class,() -> departmentService.findMaxSalary(1));
 
 }
-@Test
+    @Test
 void testDepartmentMinSallary(){
         var actual1= departmentService.findMinSalary(1);
     assertThat(actual1.isPresent()).isTrue();
@@ -52,7 +53,7 @@ void testDepartmentMinSallary(){
     var actual2= departmentService.findMinSalary(3);
     assertThat(actual2.isPresent()).isTrue();
     assertThat(actual2.get()).isEqualTo(new Employee("Maks","Maks", 30000,3));
-    assertThrows(EmplooyeException.class,() -> departmentService.findMinSalary(1111));
+    assertThrows(EmployeeNotFoundException.class,() -> departmentService.findMinSalary(1111));
 var actual3= departmentService.findMinSalary(1111);
 assertThat(actual3.isEmpty()).isTrue();
 }
@@ -61,8 +62,8 @@ assertThat(actual3.isEmpty()).isTrue();
         var actual= departmentService.findByDepartment(2);
         assertThat(actual).containsExactlyInAnyOrder(
                 new Employee("Natasha","Natasha",  2000,2),
-                new Employee("Sveta","Sveta",2100,2),
-                new Employee("Roza","Roza",1200,2));
+               new Employee("Sveta","Sveta",2100,2),
+        new Employee("Roza","Roza",1200,2));
 }
 @Test
     void testGroupByDepartment(){

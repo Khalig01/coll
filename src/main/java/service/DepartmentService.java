@@ -1,12 +1,10 @@
 package service;
 
+import exceptions.EmployeeNotFoundException;
 import homework.coll.Employee;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,19 +16,19 @@ public class DepartmentService {
         this.employeeService = employeeService;
     }
 
-    public Employee findMaxSalary(int department) {
+    public Optional<Employee> findMaxSalary(int department) {
         return employeeService.getAll().stream()
                 .filter(e -> e.getDepartment() == department)
-                .max(Comparator.comparingInt(Employee::getSalary))
-                .orElse(null);
+                .max(Comparator.comparingInt(Employee::getSalary).reversed());
     }
 
-    public Employee findMinSalary(int department) {
+    public Optional<Employee> findMinSalary(int department) {
         return employeeService.getAll().stream()
                 .filter(e -> e.getDepartment() == department)
-                .max(Comparator.comparingInt(Employee::getSalary))
-                .orElse(null);
+                .min(Comparator.comparingInt(Employee::getSalary).reversed());
     }
+
+
 
     public Collection<Employee> findByDepartment(int department) {
         return employeeService.getAll().stream()

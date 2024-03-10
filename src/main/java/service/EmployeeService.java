@@ -1,9 +1,6 @@
 package service;
 
-import exceptions.EmplooyeException;
-import exceptions.EmplooyeeStorageFullException;
-import exceptions.EmployeeAlreadyAddedException;
-import exceptions.WrongNameException;
+import exceptions.*;
 import homework.coll.Employee;
 import org.apache.catalina.mbeans.SparseUserDatabaseMBean;
 import org.apache.commons.lang3.StringUtils;
@@ -38,17 +35,17 @@ public class EmployeeService {
         var key = makeKey(fistName, lastName);
         var removed = employees.remove(key);
         if (removed == null) {
-            throw new EmplooyeException();
+            throw new EmployeeNotFoundException("Error");
         }
     }
 
-    public Employee find(String fistName, String lastName) {
-        var key = makeKey(fistName, lastName);
+    public Employee find(String firstName, String lastName) {
+        var key = makeKey(firstName, lastName);
         var employee = employees.get(key);
-        if (employees != null) {
-            return employee;
+        if (employee == null) {
+            throw new EmployeeNotFoundException("Error");
         }
-        throw new EmplooyeException();
+        return employee;
     }
 
 

@@ -64,18 +64,8 @@ public class Employee {
         return Objects.hash(firstName, lastName, salary, department);
     }
 
-    public boolean isPresent() {
-        return true;
+
     }
 
-
-    public boolean isEmpty() {
-        return true;
-    }
-
-    public boolean get() {
-        return true;
-    }
-}
 
 

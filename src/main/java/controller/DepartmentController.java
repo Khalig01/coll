@@ -10,6 +10,7 @@ import service.DepartmentService;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping( "/departments")
@@ -22,13 +23,13 @@ public class DepartmentController {
     }
 
     @GetMapping("/max-salary")
-    public Employee max(@RequestParam int departmentId) {
+    public Optional<Employee> max(@RequestParam int departmentId) {
         return service.findMaxSalary(departmentId);
     }
 
     @GetMapping("/min-salary")
-    public Employee min(@RequestParam int departmentId) {
-return service.findMinSalary(departmentId);
+    public Optional<Employee> min(@RequestParam int departmentId) {
+    return service.findMinSalary(departmentId);
     }
 
     @GetMapping(value="/all", params= {"departmentId"})
